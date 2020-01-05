@@ -3,6 +3,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <script lang="js">
         async function run(){
+            tf.setBackend('webgl');
+            console.log("Backend: ", tf.getBackend());
+            
             const csvUrl = 'iris.csv';
             const trainingData = tf.data.csv(csvUrl, {
                 columnConfigs: {
@@ -25,16 +28,21 @@
                   }).batch(10);
             
             const model = tf.sequential();
-            model.add(tf.layers.dense({inputShape: [numOfFeatures], activation: "sigmoid", units: 5}))
+            model.add(tf.layers.dense({inputShape: [numOfFeatures], activation: "tanh", units: 5}))
             model.add(tf.layers.dense({activation: "softmax", units: 3}));
             
             model.compile({loss: "categoricalCrossentropy", optimizer: tf.train.adam(0.06)});
             
+            var lastTs = performance.now();
             await model.fitDataset(convertedData, 
                              {epochs:100,
                               callbacks:{
                                   onEpochEnd: async(epoch, logs) =>{
-                                      console.log("Epoch: " + epoch + " Loss: " + logs.loss);
+                                      if(epoch % 10 == 0) {
+                                        console.log("Epoch: " + epoch + " Loss: " + logs.loss + ` Time: ${performance.now()-lastTs}ms`);
+                                        lastTs = performance.now();
+                                      }
+                                      
                                   }
                               }});
             
