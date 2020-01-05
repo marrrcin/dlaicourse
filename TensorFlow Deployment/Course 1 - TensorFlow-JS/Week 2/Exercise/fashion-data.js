@@ -24,10 +24,10 @@ const TRAIN_TEST_RATIO = 1 / 7;
 const NUM_TRAIN_ELEMENTS = Math.floor(TRAIN_TEST_RATIO * NUM_DATASET_ELEMENTS);
 const NUM_TEST_ELEMENTS = NUM_DATASET_ELEMENTS - NUM_TRAIN_ELEMENTS;
 
-const MNIST_IMAGES_SPRITE_PATH =
-    'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_images.png';
-const MNIST_LABELS_PATH =
-    'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_labels_uint8';
+const MNIST_IMAGES_SPRITE_PATH = "fashion_mnist_images.png";
+    //'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_images.png';
+const MNIST_LABELS_PATH = "fashion_mnist_labels_uint8";
+    //'https://storage.googleapis.com/learnjs-data/model-builder/fashion_mnist_labels_uint8';
 
 /**
  * A class that fetches the sprited MNIST dataset and returns shuffled batches.
